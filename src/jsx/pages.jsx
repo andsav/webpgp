@@ -96,9 +96,15 @@ const pages = [
                             </div>
                         )
                     };
+                    let err = (message) => {
+                        return () => { cb ( <Error message={message} /> ) }
+                    };
 
                     if(key.primaryKey.isDecrypted) {
-                        window.openpgp.decrypt(options).then(ret);
+                        window.openpgp
+                            .decrypt(options)
+                            .then(ret)
+                            .catch(err("Invalid parameters"));
                     }
                     else {
                         window.openpgp.decryptKey({
@@ -106,8 +112,13 @@ const pages = [
                             passphrase: data.passphrase
                         }).then( (dec) => {
                             options['privateKey'] = dec;
-                            window.openpgp.decrypt(options).then(ret);
-                        }).catch( () => { cb ( <Error message="Invalid Password" /> )  });
+
+                            window.openpgp
+                                .decrypt(options)
+                                .then(ret)
+                                .catch(err("Invalid parameters"));
+
+                        }).catch(err("Invalid passphrase"));
                     }
                 }}>
                 <Row>
