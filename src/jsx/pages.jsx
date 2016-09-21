@@ -11,7 +11,7 @@ const pages = [
                     };
 
                     if(data.passphrase !== "") {
-                        options['passphrase'] = data.passphrase;
+                        options["passphrase"] = data.passphrase;
                     }
 
                     window.openpgp.generateKey(options).then(
@@ -50,7 +50,7 @@ const pages = [
                 submitFunction = {(data, cb) => {
                     let options = {
                         data: data.message,
-                        publicKeys: window.openpgp.key.readArmored(data['public-key']).keys
+                        publicKeys: window.openpgp.key.readArmored(data["public-key"]).keys
                     };
 
                     window.openpgp.encrypt(options).then(
@@ -82,9 +82,9 @@ const pages = [
             <Form
                 submit="Decrypt"
                 submitFunction = {(data, cb) => {
-                    let key = window.openpgp.key.readArmored(data['private-key']).keys[0];
+                    let key = window.openpgp.key.readArmored(data["private-key"]).keys[0];
                     let options = {
-                        message: window.openpgp.message.readArmored(data['encrypted-message']),
+                        message: window.openpgp.message.readArmored(data["encrypted-message"]),
                         privateKey: key
                     };
                     let ret = (plaintext) => {
@@ -111,7 +111,7 @@ const pages = [
                             privateKey: key,
                             passphrase: data.passphrase
                         }).then( (dec) => {
-                            options['privateKey'] = dec;
+                            options["privateKey"] = dec;
 
                             window.openpgp
                                 .decrypt(options)

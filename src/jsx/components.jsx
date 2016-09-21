@@ -31,7 +31,7 @@ class Page extends React.Component {
                             <div style={style} key={"page_" + safeId(p.name)} id={safeId(p.name)}>
                                 {p.form}
                             </div>
-                        )
+                        );
                     })}
                 </div>
             </div>
@@ -66,7 +66,7 @@ class Nav extends React.Component {
                     </ul>
                 </section>
             </nav>
-        )
+        );
     }
 }
 
@@ -88,7 +88,7 @@ class Link extends React.Component {
                     {this.props.name}
                 </a>
             </li>
-        )
+        );
     }
 }
 
@@ -116,7 +116,7 @@ class Form extends React.Component {
     }
     handleSubmit(e) {
         let data = {};
-        let q = e.target.querySelectorAll('input, textarea');
+        let q = e.target.querySelectorAll("input, textarea");
 
         q.forEach(
             (input) => {
@@ -182,7 +182,7 @@ class Column extends React.Component {
                     {this.props.children}
                 </fieldset>
             </div>
-        )
+        );
     }
 }
 
@@ -197,7 +197,7 @@ class Input extends React.Component {
                        type={this.props.type} placeholder={this.props.placeholder}
                        {...this.props} />
             </div>
-        )
+        );
     }
 }
 
@@ -210,6 +210,6 @@ class Textarea extends React.Component {
                 </label>
                 <textarea id={safeId(this.props.name)} {...this.props} />
             </div>
-        )
+        );
     }
 }
