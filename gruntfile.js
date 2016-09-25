@@ -1,10 +1,18 @@
 module.exports = function(grunt) {
     grunt.initConfig({
-        react: {
-            combined_file_output: {
-                files: {
-                    'dist/app.js': ['src/app.jsx']
-                }
+        babel: {
+            options: {
+                plugins: ['transform-react-jsx'],
+                presets: ['es2015', 'react']
+            },
+            jsx: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/',
+                    src: ['*.jsx'],
+                    dest: 'dist/',
+                    ext: '.js'
+                }]
             }
         },
         uglify: {
@@ -15,16 +23,20 @@ module.exports = function(grunt) {
             }
         },
         sass: {
-            my_target: {
+            dist: {
                 files: {
-                    'dist/app.min.js': ['dist/app.js']
+                    'dist/style.css': ['src/style.sass']
                 }
             }
         },
         watch: {
-            react: {
+            babel: {
                 files: "src/app.jsx",
-                tasks: ['react']
+                tasks: ['babel']
+            },
+            sass: {
+                files: "src/style.sass",
+                tasks: ['sass']
             },
             uglify: {
                 files: "dist/app.js",
@@ -33,10 +45,11 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-react');
+    grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('default', ['babel', 'sass', 'uglify', 'watch']);
 
 };

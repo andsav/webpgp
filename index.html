@@ -1,15 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
     <title>WebPGP</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="bower_components/pure/pure-min.css">
-    <link rel="stylesheet" href="dist/style.min.css">
+    <link rel="stylesheet" href="dist/style.css">
+
     <script src="bower_components/react/react.js"></script>
     <script src="bower_components/react/react-dom.js"></script>
 </head>
 <body>
+
+<div class="header">
+    <nav class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item pure-menu-selected">
+                <a href="#generate" class="pure-menu-link">
+                    <i class="fa fa-key"></i>
+                    Key Pair
+                </a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="#encrypt" class="pure-menu-link">
+                    <i class="fa fa-lock"></i>
+                    Encrypt
+                </a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="#decrypt" class="pure-menu-link">
+                    <i class="fa fa-unlock"></i>
+                    Decrypt
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div id="pages">
+    <div id="generate">
+        <form class="pure-form pure-form-aligned">
+            <div class="pure-g">
+                <div class="pure-u-1-2">
+                    <fieldset>
+                        <legend>Required Information</legend>
+
+                        <div class="pure-control-group">
+                            <label for="name">Name</label>
+                            <input id="name" type="text" placeholder="Full name">
+                        </div>
+
+                        <div class="pure-control-group">
+                            <label for="email">Email</label>
+                            <input id="email" type="email" placeholder="Email Address">
+                        </div>
+
+                    </fieldset>
+                </div>
+                <div class="pure-u-1-2">
+                    <fieldset>
+                        <legend>Advanced Options</legend>
+
+                        <div class="pure-control-group">
+                            <label for="comment">Comment</label>
+                            <input id="comment" type="text" placeholder="">
+                        </div>
+
+                        <div class="pure-control-group">
+                            <label for="password">Passphrase</label>
+                            <input id="password" type="password" placeholder="RECOMMENDED">
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+
+            <center style="margin-top: 15px">
+                <button type="submit" class="pure-button pure-button-primary">Generate Key Pair</button>
+            </center>
+
+        </form>
+
+        <div class="generated">
+            <br>
+            <hr>
+        </div>
+
+    </div>
+
+    <div id="encrypt">
+
+    </div>
+
+    <div id="decrypt">
+
+    </div>
+</div>
+
+
+<script type="text/javascript" src="bower_components/fastclick/lib/fastclick.js"></script>
 <script type="text/javascript" src="bower_components/openpgp/dist/openpgp.min.js"></script>
 <script type="text/javascript" src="dist/app.min.js"></script>
 </body>
