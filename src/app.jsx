@@ -12,6 +12,8 @@ class Input extends React.Component {
     }
 }
 
+
+
 ReactDOM.render(
     <Input name="Name" type="text" placeholder="Full name" />,
     document.getElementById('generate'));
