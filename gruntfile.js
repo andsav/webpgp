@@ -1,5 +1,11 @@
 module.exports = function(grunt) {
     grunt.initConfig({
+        concat: {
+            dist: {
+                src: ['src/jsx/helpers.jsx', 'src/jsx/components.jsx', 'src/jsx/pages.jsx', 'src/jsx/main.jsx'],
+                dest: 'src/jsx/concat/app.jsx',
+            },
+        },
         babel: {
             options: {
                 plugins: ['transform-react-jsx'],
@@ -8,7 +14,7 @@ module.exports = function(grunt) {
             jsx: {
                 files: [{
                     expand: true,
-                    cwd: 'src/',
+                    cwd: 'src/jsx/concat/',
                     src: ['*.jsx'],
                     dest: 'dist/',
                     ext: '.js'
@@ -25,17 +31,21 @@ module.exports = function(grunt) {
         sass: {
             dist: {
                 files: {
-                    'dist/style.css': ['src/style.sass']
+                    'dist/style.css': ['src/sass/style.sass']
                 }
             }
         },
         watch: {
+            concat: {
+                files: "src/jsx/*.jsx",
+                tasks: ['concat']
+            },
             babel: {
-                files: "src/app.jsx",
+                files: "src/jsx/concat/app.jsx",
                 tasks: ['babel']
             },
             sass: {
-                files: "src/style.sass",
+                files: "src/sass/style.sass",
                 tasks: ['sass']
             },
             uglify: {
@@ -45,11 +55,12 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['babel', 'sass', 'uglify', 'watch']);
+    grunt.registerTask('default', ['concat', 'babel', 'sass', 'uglify', 'watch']);
 
 };
