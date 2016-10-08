@@ -23,9 +23,7 @@ class Page extends React.Component {
     render() {
         return(
             <div>
-                <header className="header">
-                    <Nav onChange={this.setActive} links={this.props.pages} active={this.state.active} />
-                </header>
+                <Nav onChange={this.setActive} links={this.props.pages} active={this.state.active} />
                 <div id="pages">
                     {this.props.pages.map((p) => {
                         let style = {"display": safeId(p.name) === this.state.active ? "block" : "none" };
@@ -51,17 +49,22 @@ class Nav extends React.Component {
     }
     render() {
         return (
-            <nav className="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-                <ul className="pure-menu-list">
-                    {this.props.links.map((c) => {
-                        return <Link
-                            key={"link_" + safeId(c.name)}
-                            name={c.name}
-                            icon={c.icon}
-                            active={safeId(c.name) === this.props.active}
-                            onChange={this.setActive} />
-                    })};
-                </ul>
+            <nav>
+                <section className="container">
+                    <a className="navigation-title" href="https://webpgp.com">
+                        <i className="fa fa-key"></i>&nbsp;WebPGP
+                    </a>
+                    <ul className="navigation-list float-right">
+                        {this.props.links.map((c) => {
+                            return <Link
+                                key={"link_" + safeId(c.name)}
+                                name={c.name}
+                                icon={c.icon}
+                                active={safeId(c.name) === this.props.active}
+                                onChange={this.setActive} />
+                        })};
+                    </ul>
+                </section>
             </nav>
         )
     }
@@ -78,13 +81,11 @@ class Link extends React.Component {
         history.pushState(null, this.props.name, "#" + safeId(this.props.name));
     }
     render() {
-        let className = "pure-menu-item " + (this.props.active ? 'pure-menu-selected' : "");
+        let className =(this.props.active ? 'active' : "");
         return (
             <li className={className}>
-                <a onClick={this.handleClick}
-                    href={"#" + safeId(this.props.name)}
-                    className="pure-menu-link">
-                    <i className={"fa fa-" + this.props.icon}></i> {this.props.name}
+                <a onClick={this.handleClick} href={"#" + safeId(this.props.name)}>
+                    {this.props.name}
                 </a>
             </li>
         )
@@ -94,12 +95,12 @@ class Link extends React.Component {
 class Form extends React.Component {
     render() {
         return (
-            <form className="pure-form pure-form-aligned">
-                <div className="pure-g">
+            <form className="container">
+                <div className="row">
                     {this.props.children}
                 </div>
                 <center style={{marginTop: '15px'}}>
-                    <button type="submit" className="pure-button pure-button-primary">
+                    <button type="submit" className="button button-outline">
                         {this.props.submit}
                     </button>
                 </center>
@@ -111,9 +112,9 @@ class Form extends React.Component {
 class Column extends React.Component {
     render() {
         return (
-            <div className="pure-u-1-2">
+            <div className="column">
                 <fieldset>
-                    <legend>{this.props.name}</legend>
+                    <h4>{this.props.name}</h4>
                     {this.props.children}
                 </fieldset>
             </div>

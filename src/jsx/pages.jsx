@@ -1,7 +1,6 @@
 const pages = [
     {
-        name: "Key Generation",
-        icon: "key",
+        name: "Generate",
         form: (
             <Form submit="Generate Key Pair">
                 <Column name="Required Information">
@@ -17,7 +16,6 @@ const pages = [
     },
     {
         name: "Encrypt",
-        icon: "lock",
         form: (
             <Form submit="Encrypt">
                 <Column name="Message">
@@ -31,7 +29,6 @@ const pages = [
     },
     {
         name: "Decrypt",
-        icon: "unlock",
         form: (
             <Form submit="Decrypt">
                 <Column name="Encrypted Message">
