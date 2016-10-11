@@ -95,16 +95,27 @@ class Link extends React.Component {
 class Form extends React.Component {
     render() {
         return (
-            <form className="container">
-                <div className="row">
+            <div>
+                <form className="container">
                     {this.props.children}
-                </div>
-                <center style={{marginTop: '15px'}}>
-                    <button type="submit" className="button button-outline">
-                        {this.props.submit}
-                    </button>
-                </center>
-            </form>
+                    <center style={{marginTop: '15px'}}>
+                        <button type="submit" className="button button-outline button-large">
+                            {this.props.submit}
+                        </button>
+                    </center>
+                </form>
+
+            </div>
+        )
+    }
+}
+
+class Row extends React.Component {
+    render() {
+        return (
+            <div className="row">
+                {this.props.children}
+            </div>
         )
     }
 }
@@ -114,7 +125,6 @@ class Column extends React.Component {
         return (
             <div className="column">
                 <fieldset>
-                    <h4>{this.props.name}</h4>
                     {this.props.children}
                 </fieldset>
             </div>
@@ -125,7 +135,7 @@ class Column extends React.Component {
 class Input extends React.Component {
     render() {
         return (
-            <div className="pure-control-group">
+            <div>
                 <label htmlFor={safeId(this.props.name)}>{this.props.name}</label>
                 <input id={safeId(this.props.name)} type={this.props.type} placeholder={this.props.placeholder} />
             </div>
@@ -136,8 +146,10 @@ class Input extends React.Component {
 class Textarea extends React.Component {
     render() {
         return (
-            <textarea className="pure-input-u" id={safeId(this.props.name)} placeholder={this.props.placeholder}>
-            </textarea>
+            <div>
+                <label htmlFor={safeId(this.props.name)}>{this.props.name}</label>
+                <textarea id={safeId(this.props.name)} {...this.props} />
+            </div>
         )
     }
 }
