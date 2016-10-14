@@ -52,7 +52,7 @@ class Nav extends React.Component {
             <nav>
                 <section className="container">
                     <a className="navigation-title" href="https://webpgp.com">
-                        <i className="fa fa-key"></i>&nbsp;WebPGP
+                        <img className="logo" src="key.png" alt="WebPGP" />
                     </a>
                     <ul className="navigation-list float-right">
                         {this.props.links.map((c) => {
@@ -62,7 +62,7 @@ class Nav extends React.Component {
                                 icon={c.icon}
                                 active={safeId(c.name) === this.props.active}
                                 onChange={this.setActive} />
-                        })};
+                        })}
                     </ul>
                 </section>
             </nav>

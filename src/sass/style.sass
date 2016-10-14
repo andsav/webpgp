@@ -1,21 +1,29 @@
 $light-blue: #AECFE5
+$primary: #48ACF0
+$jungle: #1E3231
+$white: #F1FFE7
+
+img.logo
+  vertical-align: top
+  height: 32px
+  margin-top: 5px
 
 nav
   background: #333
   display: block
-  height: 5.2rem
+  height: 50px
   width: 100%
   a
-    color: white
+    color: $white
     &:hover
       color: $light-blue
 
 .navigation-title
   font-weight: bold
-  color: white
+  color: $white
   display: inline
   font-size: 1.6rem
-  line-height: 5.2rem
+  line-height: 50px
   position: relative
   text-decoration: none
 
@@ -25,6 +33,7 @@ nav
 
   li
     padding: 0 1rem
+    vertical-align: bottom
 
     float: left
     margin-bottom: 0
@@ -36,9 +45,22 @@ nav
   a
     display: inline
     font-size: 1.6rem
-    line-height: 5.2rem
+    line-height: 50px
     padding: 0
     text-decoration: none
 
 #pages
   margin-top: 1rem
+
+.button-outline
+  -webkit-transition: all 0.4s ease-out
+  -moz-transition: all 0.4s ease-out
+  -o-transition: all 0.4s ease-out
+  -ms-transition: all 0.4s ease-out
+  transition: all 0.4s ease-out
+  color: $primary !important
+  border-color: $primary !important
+
+  &:hover
+    color: $jungle !important
+    border-color: $jungle !important
