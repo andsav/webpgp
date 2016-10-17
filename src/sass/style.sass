@@ -1,29 +1,32 @@
 $light-blue: #AECFE5
 $primary: #48ACF0
 $jungle: #1E3231
+$grey: #9f9e9b
 $white: #F1FFE7
+
+@import 'https://fonts.googleapis.com/css?family=Inconsolata'
 
 img.logo
   vertical-align: top
   height: 32px
-  margin-top: 5px
 
 nav
-  background: #333
+  background: #222
   display: block
-  height: 50px
+  height: 40px
   width: 100%
   a
-    color: $white
+    color: $grey
+    font-family: 'Inconsolata', monospace
     &:hover
-      color: $light-blue
+      color: $white
 
 .navigation-title
   font-weight: bold
   color: $white
   display: inline
   font-size: 1.6rem
-  line-height: 50px
+  line-height: 40px
   position: relative
   text-decoration: none
 
@@ -40,17 +43,17 @@ nav
     position: relative
 
     &:hover, &.active
-      background-color: #272727
+      background-color: #111
 
   a
     display: inline
     font-size: 1.6rem
-    line-height: 50px
+    line-height: 40px
     padding: 0
     text-decoration: none
 
 #pages
-  margin-top: 1rem
+  margin-top: 2rem
 
 .button-outline
   -webkit-transition: all 0.4s ease-out
