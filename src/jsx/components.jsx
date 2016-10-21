@@ -93,10 +93,41 @@ class Link extends React.Component {
 }
 
 class Form extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            result: ""
+        };
+    }
+    handleSubmit(e) {
+        let data = {};
+        let q = e.target.querySelectorAll('input, textarea');
+
+        q.forEach(
+            (input) => {
+                data[input.id] = input.value;
+            }
+        );
+
+        this.setState({
+           result: (
+               <div className="loading"></div>
+           )
+        });
+
+        this.props.submitFunction(data, (result) => {
+                this.setState({ result: result });
+            }
+        );
+
+        e.preventDefault();
+    }
+
     render() {
         return (
             <div>
-                <form className="container">
+                <form className="container" onSubmit={this.handleSubmit}>
                     {this.props.children}
                     <center style={{marginTop: '15px'}}>
                         <button type="submit" className="button button-outline button-large">
@@ -105,6 +136,7 @@ class Form extends React.Component {
                     </center>
                 </form>
 
+                {this.state.result}
             </div>
         )
     }
@@ -136,8 +168,12 @@ class Input extends React.Component {
     render() {
         return (
             <div>
-                <label htmlFor={safeId(this.props.name)}>{this.props.name}</label>
-                <input id={safeId(this.props.name)} type={this.props.type} placeholder={this.props.placeholder} />
+                <label htmlFor={safeId(this.props.name)}>
+                    {this.props.name} {this.props.required !== undefined ? "*" : ""}
+                </label>
+                <input id={safeId(this.props.name)}
+                       type={this.props.type} placeholder={this.props.placeholder}
+                       {...this.props} />
             </div>
         )
     }
@@ -147,7 +183,9 @@ class Textarea extends React.Component {
     render() {
         return (
             <div>
-                <label htmlFor={safeId(this.props.name)}>{this.props.name}</label>
+                <label htmlFor={safeId(this.props.name)}>
+                    {this.props.name} {this.props.required !== undefined ? "*" : ""}
+                </label>
                 <textarea id={safeId(this.props.name)} {...this.props} />
             </div>
         )

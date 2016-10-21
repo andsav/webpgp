@@ -67,3 +67,40 @@ nav
   &:hover
     color: $jungle !important
     border-color: $jungle !important
+
+pre
+  font-size: x-small
+  padding-left: 3rem
+
+.loading
+  position: relative
+  left: 44%
+  width: 0
+  height: 0
+  border-right: 5vw solid $light-blue
+  border-top: 5vw solid $grey
+  border-left: 5vw solid $jungle
+  border-bottom: 5vw solid $white
+  border-radius: 5vw
+  -moz-border-radius: 5vw
+  -webkit-border-radius: 5vw
+  animation: load 1.3s linear 0s infinite
+  -moz-animation: load 1.3s linear 0s infinite
+  -webkit-animation: load 1.3s linear 0s infinite
+  @keyframes load
+    from
+      transform: rotate(0deg)
+    to
+      transform: rotate(360deg)
+
+  @-moz-keyframes load
+    from
+      -moz-transform: rotate(0deg)
+    to
+      -moz-transform: rotate(360deg)
+
+  @-webkit-keyframes load
+    from
+      -webkit-transform: rotate(0deg)
+    to
+      -webkit-transform: rotate(360deg)
