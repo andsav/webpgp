@@ -7,9 +7,12 @@ const pages = [
                 submitFunction={(data, cb) => {
                     let options = {
                         userIds: [{ name: data.name, email: data.email }],
-                        numBits: 2048,
-                        passphrase: data.passphrase
+                        numBits: 2048
                     };
+
+                    if(data.passphrase !== "") {
+                        options['passphrase'] = data.passphrase;
+                    }
 
                     window.openpgp.generateKey(options).then(
                         (key) => {
@@ -42,7 +45,26 @@ const pages = [
     {
         name: "Encrypt",
         form: (
-            <Form submit="Encrypt">
+            <Form
+                submit="Encrypt"
+                submitFunction = {(data, cb) => {
+                    let options = {
+                        data: data.message,
+                        publicKeys: window.openpgp.key.readArmored(data['public-key']).keys
+                    };
+
+                    window.openpgp.encrypt(options).then(
+                        (ciphertext) => {
+                            cb(
+                                <div className="row">
+                                    <div className="column">
+                                        <pre>{ciphertext.data}</pre>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    );
+                }}>
                 <Row>
                     <Column>
                         <Textarea name="Message" placeholder="Message" required />
@@ -57,7 +79,31 @@ const pages = [
     {
         name: "Decrypt",
         form: (
-            <Form submit="Decrypt">
+            <Form
+                submit="Decrypt"
+                submitFunction = {(data, cb) => {
+                    let key = window.openpgp.key.readArmored(data['private-key']).keys[0];
+                    if(data.passphrase !== "") {
+                        key = key.decrypt(data.passphrase);
+                    }
+
+                    let options = {
+                        message: window.openpgp.message.readArmored(data['encrypted-message']),
+                        privateKeys: key
+                    };
+
+                    window.openpgp.decrypt(options).then(
+                        (plaintext) => {
+                            cb(
+                                <div className="row">
+                                    <div className="column">
+                                        <pre>{plaintext.data}</pre>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    );
+                }}>
                 <Row>
                     <Column>
                         <Textarea name="Encrypted Message" placeholder="Encrypted Message" required />
