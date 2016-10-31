@@ -83,26 +83,32 @@ const pages = [
                 submit="Decrypt"
                 submitFunction = {(data, cb) => {
                     let key = window.openpgp.key.readArmored(data['private-key']).keys[0];
-                    if(data.passphrase !== "") {
-                        key = key.decrypt(data.passphrase);
-                    }
-
                     let options = {
                         message: window.openpgp.message.readArmored(data['encrypted-message']),
-                        privateKeys: key
+                        privateKey: key
+                    };
+                    let ret = (plaintext) => {
+                        cb(
+                            <div className="row">
+                                <div className="column">
+                                    <pre>{plaintext.data}</pre>
+                                </div>
+                            </div>
+                        )
                     };
 
-                    window.openpgp.decrypt(options).then(
-                        (plaintext) => {
-                            cb(
-                                <div className="row">
-                                    <div className="column">
-                                        <pre>{plaintext.data}</pre>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    );
+                    if(key.primaryKey.isDecrypted) {
+                        window.openpgp.decrypt(options).then(ret);
+                    }
+                    else {
+                        window.openpgp.decryptKey({
+                            privateKey: key,
+                            passphrase: data.passphrase
+                        }).then( (dec) => {
+                            options['privateKey'] = dec;
+                            window.openpgp.decrypt(options).then(ret);
+                        }).catch( () => { cb ( <Error message="Invalid Password" /> )  });
+                    }
                 }}>
                 <Row>
                     <Column>

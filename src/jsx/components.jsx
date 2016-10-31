@@ -92,6 +92,20 @@ class Link extends React.Component {
     }
 }
 
+class Error extends React.Component {
+    render() {
+        return (
+            <div className="row">
+                <div className="column">
+                    <div className="danger">
+                        {this.props.message}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
 class Form extends React.Component {
     constructor(props) {
         super(props);
@@ -116,10 +130,16 @@ class Form extends React.Component {
            )
         });
 
-        this.props.submitFunction(data, (result) => {
-                this.setState({ result: result });
-            }
-        );
+        try {
+            this.props.submitFunction(data, (result) => {
+                    this.setState({ result: result });
+                }
+            );
+        } catch(error) {
+            this.setState({
+                result: <Error message={error}/>
+            });
+        }
 
         e.preventDefault();
     }
@@ -135,6 +155,8 @@ class Form extends React.Component {
                         </button>
                     </center>
                 </form>
+
+                <br />
 
                 {this.state.result}
             </div>
