@@ -19,10 +19,10 @@ const pages = [
                             cb(
                                 <div className="row">
                                     <div className="column">
-                                        <pre>{key.privateKeyArmored}</pre>
+                                        <Pre>{key.privateKeyArmored}</Pre>
                                     </div>
                                     <div className="column">
-                                        <pre>{key.publicKeyArmored}</pre>
+                                        <Pre>{key.publicKeyArmored}</Pre>
                                     </div>
                                 </div>
                             )
@@ -58,7 +58,7 @@ const pages = [
                             cb(
                                 <div className="row">
                                     <div className="column">
-                                        <pre>{ciphertext.data}</pre>
+                                        <Pre>{ciphertext.data}</Pre>
                                     </div>
                                 </div>
                             )
@@ -82,6 +82,8 @@ const pages = [
             <Form
                 submit="Decrypt"
                 submitFunction = {(data, cb) => {
+                    console.log(data);
+
                     let key = window.openpgp.key.readArmored(data["private-key"]).keys[0];
                     let options = {
                         message: window.openpgp.message.readArmored(data["encrypted-message"]),
@@ -91,7 +93,7 @@ const pages = [
                         cb(
                             <div className="row">
                                 <div className="column">
-                                    <pre>{plaintext.data}</pre>
+                                    <Pre>{plaintext.data}</Pre>
                                 </div>
                             </div>
                         )
