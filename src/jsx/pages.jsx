@@ -25,7 +25,7 @@ const pages = [
                                         <Pre>{key.publicKeyArmored}</Pre>
                                     </div>
                                 </div>
-                            )
+                            );
                         }
                     );
                 }}>
@@ -99,7 +99,7 @@ const pages = [
                         )
                     };
                     let err = (message) => {
-                        return () => { cb ( <Error message={message} /> ) }
+                        return () => { cb ( <Error message={message} /> ) };
                     };
 
                     if(key.primaryKey.isDecrypted) {

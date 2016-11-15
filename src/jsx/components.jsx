@@ -8,18 +8,21 @@ class Page extends React.Component {
                 : window.location.hash.substr(1)
         };
     }
+
     componentWillMount() {
         window.changePage = (a) => {
             this.setState({
                 active: a
             });
-        }
+        };
     }
+
     setActive(a) {
         this.setState({
             active: a
         });
     }
+
     render() {
         return(
             <div>
@@ -81,7 +84,7 @@ class Link extends React.Component {
         history.pushState(null, this.props.name, "#" + safeId(this.props.name));
     }
     render() {
-        let className =(this.props.active ? 'active' : "");
+        let className =(this.props.active ? "active" : "");
         return (
             <li className={className}>
                 <a onClick={this.handleClick} href={"#" + safeId(this.props.name)}>
@@ -149,7 +152,7 @@ class Form extends React.Component {
             <div>
                 <form className="container" onSubmit={this.handleSubmit}>
                     {this.props.children}
-                    <center style={{marginTop: '15px'}}>
+                    <center style={{marginTop: "15px"}}>
                         <button type="submit" className="button button-outline button-large">
                             {this.props.submit}
                         </button>
@@ -202,13 +205,19 @@ class Input extends React.Component {
 }
 
 class Textarea extends React.Component {
+    expand(e) {
+        if(e.target.scrollTop != 0) {
+            e.target.style.height = e.target.scrollHeight + "px";
+        }
+    }
+
     render() {
         return (
             <div>
                 <label htmlFor={safeId(this.props.name)}>
                     {this.props.name} {this.props.required !== undefined ? "*" : ""}
                 </label>
-                <textarea id={safeId(this.props.name)} {...this.props} />
+                <textarea onKeyUp={this.expand} id={safeId(this.props.name)} {...this.props} />
             </div>
         );
     }

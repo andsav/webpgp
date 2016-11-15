@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
-            my_target: {
+            myTarget: {
                 files: {
                     "dist/app.min.js": ["dist/app.js"]
                 }
