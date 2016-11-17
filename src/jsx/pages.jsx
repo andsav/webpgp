@@ -82,8 +82,6 @@ const pages = [
             <Form
                 submit="Decrypt"
                 submitFunction = {(data, cb) => {
-                    console.log(data);
-
                     let key = window.openpgp.key.readArmored(data["private-key"]).keys[0];
                     let options = {
                         message: window.openpgp.message.readArmored(data["encrypted-message"]),

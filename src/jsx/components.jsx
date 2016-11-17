@@ -117,6 +117,7 @@ class Form extends React.Component {
             result: ""
         };
     }
+
     handleSubmit(e) {
         let data = {};
         let q = e.target.querySelectorAll("input, textarea");
@@ -136,6 +137,7 @@ class Form extends React.Component {
         try {
             this.props.submitFunction(data, (result) => {
                     this.setState({ result: result });
+                    this.refs.result.scrollIntoView();
                 }
             );
         } catch(error) {
@@ -161,7 +163,7 @@ class Form extends React.Component {
 
                 <br />
 
-                {this.state.result}
+                <div ref="result">{this.state.result}</div>
             </div>
         )
     }
@@ -206,9 +208,9 @@ class Input extends React.Component {
 
 class Textarea extends React.Component {
     expand(e) {
-        if(e.target.scrollTop != 0) {
-            e.target.style.height = e.target.scrollHeight + "px";
-        }
+        e.target.style.height = (e.target.scrollTop !== 0)
+            ? e.target.scrollHeight + "px"
+            : "auto";
     }
 
     render() {
@@ -238,7 +240,7 @@ class Pre extends React.Component {
 
     render() {
         return (
-            <pre onClick={this.select}>{this.props.children}</pre>
+            <pre onClick={this.select} onTouchEnd={this.select}>{this.props.children}</pre>
         );
     }
 }
