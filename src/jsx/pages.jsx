@@ -136,5 +136,81 @@ const pages = [
                 </Row>
             </Form>
         )
+    },
+    {
+        name: "Sign",
+        form: (
+            <Form
+                submit="Sign"
+                submitFunction = {(data, cb) => {
+                    let options = {
+                        data: data["unsigned-message"],
+                        privateKeys: window.openpgp.key.readArmored(data["signing-key"]).keys,
+                        armored: true
+                    };
+
+                    window.openpgp.sign(options).then(
+                        (signed) => {
+                            cb(
+                                <div className="row">
+                                    <div className="column">
+                                        <Pre>{signed.data}</Pre>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    );
+                }}>
+                <Row>
+                    <Column>
+                        <Textarea name="Unsigned Message" placeholder="Message" required />
+                    </Column>
+                    <Column>
+                        <Textarea name="Signing Key" placeholder="PGP Private Key" required />
+                    </Column>
+                </Row>
+            </Form>
+        )
+    },
+    {
+        name: "Verify",
+        form: (
+            <Form
+                submit="Verify"
+                submitFunction = {(data, cb) => {
+                    let options = {
+                        publicKeys: window.openpgp.key.readArmored(data["verification-key"]).keys,
+                        message: window.openpgp.cleartext.readArmored(data["signed-message"])
+                    };
+
+                    window.openpgp.verify(options).then(
+                        (verified) => {
+                            console.log(verified);
+                            if(verified.signatures[0].valid) {
+                                cb(
+                                    <center className="success">
+                                        <big>VALID</big>
+                                    </center>
+                                )
+                            } else {
+                                cb(
+                                    <center className="danger">
+                                        <big>INVALID</big>
+                                    </center>
+                                )
+                            }
+                        }
+                    );
+                }}>
+                <Row>
+                    <Column>
+                        <Textarea name="Signed Message" placeholder="Signed Message" required />
+                    </Column>
+                    <Column>
+                        <Textarea name="Verification Key" placeholder="PGP Public Key" required />
+                    </Column>
+                </Row>
+            </Form>
+        )
     }
 ];

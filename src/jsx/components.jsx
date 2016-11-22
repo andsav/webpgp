@@ -208,9 +208,8 @@ class Input extends React.Component {
 
 class Textarea extends React.Component {
     expand(e) {
-        e.target.style.height = (e.target.scrollTop !== 0)
-            ? e.target.scrollHeight + "px"
-            : "auto";
+        e.target.style.height = "auto";
+        e.target.style.height = e.target.scrollHeight + "px";
     }
 
     render() {
