@@ -46,25 +46,38 @@ class Nav extends React.Component {
     constructor(props) {
         super(props);
         this.setActive = this.setActive.bind(this);
+        this.menuClick = this.menuClick.bind(this);
     }
+
     setActive(a) {
         this.props.onChange(a);
     }
+
+    menuClick(e) {
+        e.preventDefault();
+        e.target.parentNode.classList.toggle("active");
+        this.refs.navbar.classList.toggle("active");
+    }
+
     render() {
         return (
-            <nav>
+            <nav ref="navbar">
                 <section className="container">
                     <a className="navigation-title" href="https://webpgp.com">
                         <img className="logo" src="key.png" alt="WebPGP" />
                     </a>
-                    <ul className="navigation-list float-right">
+                    <ul ref="menu" className="navigation-list float-right">
+                        <li>
+                            <a onClick={this.menuClick} href="">Menu</a>
+                        </li>
                         {this.props.links.map((c) => {
                             return <Link
                                 key={"link_" + safeId(c.name)}
                                 name={c.name}
                                 icon={c.icon}
                                 active={safeId(c.name) === this.props.active}
-                                onChange={this.setActive} />
+                                onChange={this.setActive}
+                                mobile={false} />
                         })}
                     </ul>
                 </section>
