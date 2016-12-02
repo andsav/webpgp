@@ -38,7 +38,7 @@ class Page extends React.Component {
                     })}
                 </div>
             </div>
-        )
+        );
     }
 }
 
@@ -108,16 +108,26 @@ class Link extends React.Component {
     }
 }
 
-class Error extends React.Component {
+class Alert extends React.Component {
     render() {
         return (
             <div className="row">
                 <div className="column">
-                    <div className="danger">
-                        {this.props.message}
+                    <div className={this.props.type}>
+                        {this.props.children}
                     </div>
                 </div>
             </div>
+        );
+    }
+}
+
+class Error extends React.Component {
+    render() {
+        return (
+            <Alert type="danger">
+                {this.props.message}
+            </Alert>
         );
     }
 }
@@ -149,7 +159,7 @@ class Form extends React.Component {
 
         try {
             this.props.submitFunction(data, (result) => {
-                    this.setState({ result: result });
+                    this.setState({ result });
                     this.refs.result.scrollIntoView();
                 }
             );

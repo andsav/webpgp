@@ -61,7 +61,7 @@ const pages = [
                                         <Pre>{ciphertext.data}</Pre>
                                     </div>
                                 </div>
-                            )
+                            );
                         }
                     );
                 }}>
@@ -97,7 +97,7 @@ const pages = [
                         )
                     };
                     let err = (message) => {
-                        return () => { cb ( <Error message={message} /> ) };
+                        return () => { cb ( <Error message={message} /> ); };
                     };
 
                     if(key.primaryKey.isDecrypted) {
@@ -185,20 +185,15 @@ const pages = [
 
                     window.openpgp.verify(options).then(
                         (verified) => {
-                            console.log(verified);
-                            if(verified.signatures[0].valid) {
-                                cb(
-                                    <center className="success">
-                                        <big>VALID</big>
-                                    </center>
-                                )
-                            } else {
-                                cb(
-                                    <center className="danger">
-                                        <big>INVALID</big>
-                                    </center>
-                                )
-                            }
+                            let alert = (verified.signatures[0].valid)
+                                ? ["success", "VALID"]
+                                : ["danger", "INVALID"];
+
+                            cb(
+                              <Alert type={alert[0]}>
+                                  <big className="text-center">{alert[1]}</big>
+                              </Alert>
+                            );
                         }
                     );
                 }}>
