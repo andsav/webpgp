@@ -5,6 +5,3 @@ bower_components
 .sass-cache
 dist
 src/jsx/concat
-*.png
-!key.png
-

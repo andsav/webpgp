@@ -38,16 +38,33 @@
 <main class="wrapper" id="wrap"></main>
 
 <footer>
+    <!--
     <div class="float-right">
-        &copy; <a href="https://andreisavin.com/" target="_blank">Andrei Savin</a>
+        <a href="https://andreisavin.com/" target="_blank">Andrei Savin</a>
     </div>
+    -->
     <div class="float-left">
-        <a href="https://classic.webpgp.com/" target="_blank">Server Version</a> &nbsp;
+       <!-- <a href="https://classic.webpgp.com/" target="_blank">Server Version</a> &nbsp; -->
         <a href="https://github.com/andsav/webpgp" target="_blank">Source Code</a>
     </div>
 </footer>
 
 <script type="text/javascript" src="bower_components/openpgp/dist/openpgp.min.js"></script>
 <script type="text/javascript" src="dist/app.min.js"></script>
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//p.andreisavin.com/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '3']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//p.andreisavin.com/piwik.php?idsite=3&rec=1" style="border:0;" alt=""></p></noscript>
+
 </body>
 </html>
