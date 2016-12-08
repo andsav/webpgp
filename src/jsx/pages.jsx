@@ -109,7 +109,7 @@ const pages = [
                     else {
                         window.openpgp.decryptKey({
                             privateKey: key,
-                            passphrase: data.passphrase
+                            passphrase: data['key-passphrase']
                         }).then( (dec) => {
                             options["privateKey"] = dec;
 
@@ -131,7 +131,7 @@ const pages = [
                 </Row>
                 <Row>
                     <Column>
-                        <Input name="Passphrase" type="password" />
+                        <Input name="Key Passphrase" type="password" />
                     </Column>
                 </Row>
             </Form>

@@ -249,15 +249,7 @@ class Textarea extends React.Component {
 
 class Pre extends React.Component {
     select(e) {
-        if (document.selection) {
-            let range = document.body.createTextRange();
-            range.moveToElementText(e.target);
-            range.select();
-        } else if (window.getSelection) {
-            let range = document.createRange();
-            range.selectNode(e.target);
-            window.getSelection().addRange(range);
-        }
+        window.getSelection().selectAllChildren(e.target);
     }
 
     render() {
