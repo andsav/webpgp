@@ -10,6 +10,17 @@ img.logo
   vertical-align: top
   height: 32px
 
+#overlay
+  width: 100%
+  height: 100vh
+  position: absolute
+  background-color: rgba($white, 0.9)
+  color: $jungle
+  font-size: 2em
+  z-index: 9001
+  text-align: center
+  padding-top: 33vh
+
 nav
   background: #222
   display: block
@@ -130,7 +141,7 @@ pre
   text-align: center
 
 textarea, input
-  font-family: 'Inconsolata', monospace
+  font-family: 'Anonymous Pro', monospace
 
 textarea
   font-size: small
@@ -146,9 +157,8 @@ footer
   padding: 5px 20px
 
 // Mobile
-
 @media screen and (max-width: 525px)
-  .navigation-list li
+  .navigation-list li, #overlay
     display: none
 
   .navigation-list li:first-child
