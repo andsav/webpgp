@@ -1,4 +1,9 @@
-const pages = [
+import React from 'react';
+import {Form, Input, Textarea} from "./components/Form"
+import {Column, Row, Pre} from "./components/Layout"
+import {Alert, Error} from "./components/Alert"
+
+export default [
   {
     name: "Generate",
     form: (
