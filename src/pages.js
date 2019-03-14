@@ -1,22 +1,22 @@
-import React from 'react';
-import {Form, Input, Textarea} from "./components/Form"
-import {Column, Row, Pre} from "./components/Layout"
-import {Alert, Error} from "./components/Alert"
+import React from 'react'
+import { Form, Input, Textarea } from './components/Form'
+import { Column, Row, Pre } from './components/Layout'
+import { Alert, Error } from './components/Alert'
 
 export default [
   {
-    name: "Generate",
+    name: 'Generate',
     form: (
       <Form
         submit="Generate Key Pair"
         submitFunction={(data, cb) => {
           let options = {
-            userIds: [{name: data.name, email: data.email}],
+            userIds: [{ name: data.name, email: data.email }],
             numBits: 2048
-          };
+          }
 
-          if (data.passphrase !== "") {
-            options["passphrase"] = data.passphrase;
+          if (data.passphrase !== '') {
+            options['passphrase'] = data.passphrase
           }
 
           window.openpgp.generateKey(options).then(
@@ -30,9 +30,9 @@ export default [
                     <Pre>{key.publicKeyArmored}</Pre>
                   </div>
                 </div>
-              );
+              )
             }
-          );
+          )
         }}>
         <Row>
           <Column>
@@ -48,15 +48,15 @@ export default [
     )
   },
   {
-    name: "Encrypt",
+    name: 'Encrypt',
     form: (
       <Form
         submit="Encrypt"
         submitFunction={(data, cb) => {
           let options = {
             data: data.message,
-            publicKeys: window.openpgp.key.readArmored(data["public-key"]).keys
-          };
+            publicKeys: window.openpgp.key.readArmored(data['public-key']).keys
+          }
 
           window.openpgp.encrypt(options).then(
             (ciphertext) => {
@@ -66,9 +66,9 @@ export default [
                     <Pre>{ciphertext.data}</Pre>
                   </div>
                 </div>
-              );
+              )
             }
-          );
+          )
         }}>
         <Row>
           <Column>
@@ -82,16 +82,16 @@ export default [
     )
   },
   {
-    name: "Decrypt",
+    name: 'Decrypt',
     form: (
       <Form
         submit="Decrypt"
         submitFunction={(data, cb) => {
-          let key = window.openpgp.key.readArmored(data["private-key"]).keys[0];
+          let key = window.openpgp.key.readArmored(data['private-key']).keys[0]
           let options = {
-            message: window.openpgp.message.readArmored(data["encrypted-message"]),
+            message: window.openpgp.message.readArmored(data['encrypted-message']),
             privateKey: key
-          };
+          }
           let ret = (plaintext) => {
             cb(
               <div className="row">
@@ -100,32 +100,30 @@ export default [
                 </div>
               </div>
             )
-          };
+          }
           let err = (message) => {
             return () => {
-              cb(<Error message={message}/>);
-            };
-          };
+              cb(<Error message={message}/>)
+            }
+          }
 
           if (key.primaryKey.isDecrypted) {
             window.openpgp
               .decrypt(options)
               .then(ret)
-              .catch(err("Invalid parameters"));
-          }
-          else {
+              .catch(err('Invalid parameters'))
+          } else {
             window.openpgp.decryptKey({
               privateKey: key,
               passphrase: data['key-passphrase']
             }).then((dec) => {
-              options["privateKey"] = dec;
+              options['privateKey'] = dec
 
               window.openpgp
                 .decrypt(options)
                 .then(ret)
-                .catch(err("Invalid parameters"));
-
-            }).catch(err("Invalid passphrase"));
+                .catch(err('Invalid parameters'))
+            }).catch(err('Invalid passphrase'))
           }
         }}>
         <Row>
@@ -145,16 +143,16 @@ export default [
     )
   },
   {
-    name: "Sign",
+    name: 'Sign',
     form: (
       <Form
         submit="Sign"
         submitFunction={(data, cb) => {
           let options = {
-            data: data["unsigned-message"],
-            privateKeys: window.openpgp.key.readArmored(data["signing-key"]).keys,
+            data: data['unsigned-message'],
+            privateKeys: window.openpgp.key.readArmored(data['signing-key']).keys,
             armored: true
-          };
+          }
 
           window.openpgp.sign(options).then(
             (signed) => {
@@ -166,7 +164,7 @@ export default [
                 </div>
               )
             }
-          );
+          )
         }}>
         <Row>
           <Column>
@@ -180,29 +178,29 @@ export default [
     )
   },
   {
-    name: "Verify",
+    name: 'Verify',
     form: (
       <Form
         submit="Verify"
         submitFunction={(data, cb) => {
           let options = {
-            publicKeys: window.openpgp.key.readArmored(data["verification-key"]).keys,
-            message: window.openpgp.cleartext.readArmored(data["signed-message"])
-          };
+            publicKeys: window.openpgp.key.readArmored(data['verification-key']).keys,
+            message: window.openpgp.cleartext.readArmored(data['signed-message'])
+          }
 
           window.openpgp.verify(options).then(
             (verified) => {
               let alert = (verified.signatures[0].valid)
-                ? ["success", "VALID"]
-                : ["danger", "INVALID"];
+                ? ['success', 'VALID']
+                : ['danger', 'INVALID']
 
               cb(
                 <Alert type={alert[0]}>
                   <big className="text-center">{alert[1]}</big>
                 </Alert>
-              );
+              )
             }
-          );
+          )
         }}>
         <Row>
           <Column>
@@ -215,4 +213,4 @@ export default [
       </Form>
     )
   }
-];
+]

@@ -1,3 +1,3 @@
-export const safeId = (n) => n.toLowerCase().split(" ").join("-");
+export const safeId = (n) => n.toLowerCase().split(' ').join('-')
 
-export const DEFAULT_PAGE = "generate";
+export const DEFAULT_PAGE = 'generate'
