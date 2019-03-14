@@ -4,13 +4,17 @@ import './style/index.sass'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Page } from './components/Page'
-import pages from './pages'
 import { DEFAULT_PAGE } from './helpers'
+import Generate from './pages/Generate'
+import Encrypt from './pages/Encrypt'
+import Decrypt from './pages/Decrypt'
+import Sign from './pages/Sign'
+import Verify from './pages/Verify'
 
-window.openpgp.initWorker({
-  path: '/openpgp.worker.min.js'
-})
-window.openpgp.config.aead_protect = true
+import * as openpgp from 'openpgp'
+
+openpgp.initWorker()
+openpgp.config.aead_protect = true
 
 window.onpopstate = () => {
   window.changePage(
@@ -20,4 +24,6 @@ window.onpopstate = () => {
   )
 }
 
-ReactDOM.render(<Page pages={pages}/>, document.getElementById('wrap'))
+ReactDOM.render(
+  <Page pages={[Generate, Encrypt, Decrypt, Sign, Verify]}/>,
+  document.getElementById('wrap'))
