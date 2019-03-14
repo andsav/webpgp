@@ -190,13 +190,13 @@ export default [
 
           window.openpgp.verify(options).then(
             (verified) => {
-              let alert = (verified.signatures[0].valid)
+              let [type, message] = (verified.signatures[0].valid)
                 ? ['success', 'VALID']
                 : ['danger', 'INVALID']
 
               cb(
-                <Alert type={alert[0]}>
-                  <big className="text-center">{alert[1]}</big>
+                <Alert type={type}>
+                  <big className="text-center">{message}</big>
                 </Alert>
               )
             }

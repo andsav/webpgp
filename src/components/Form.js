@@ -35,7 +35,7 @@ export class Form extends React.Component {
       )
     } catch (error) {
       this.setState({
-        result: <Error message={error}/>
+        result: <Error message={error.toString()}/>
       })
     }
 

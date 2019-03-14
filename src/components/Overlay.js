@@ -28,7 +28,7 @@ export class Overlay extends React.Component {
       while (bytes.length < 16) {
         bytes.push(this.bytes[Math.floor(Math.random() * this.bytes.length)])
       }
-      window.openpgp.getWorker().seedRandom(bytes)
+      window.openpgp.getWorker().seedRandom(0, bytes)
     }
   }
 

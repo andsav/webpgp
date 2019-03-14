@@ -1,4 +1,5 @@
 import 'milligram'
+import 'normalize.css'
 import './style/index.sass'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -7,7 +8,7 @@ import pages from './pages'
 import { DEFAULT_PAGE } from './helpers'
 
 window.openpgp.initWorker({
-  path: `${process.env.PUBLIC_URL}/openpgp.worker.js`
+  path: '/openpgp.worker.min.js'
 })
 window.openpgp.config.aead_protect = true
 
